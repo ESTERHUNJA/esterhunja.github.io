@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ester Hunja | Cybersecurity & Digital Forensics</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #534AB7;
+    --purple-light: #EEEDFE;
+    --purple-dark: #3C3489;
+    --green: #1D9E75;
+    --green-light: #E1F5EE;
+    --pink: #D4537E;
+    --pink-light: #FBEAF0;
+    --amber: #BA7517;
+    --blue: #378ADD;
+    --coral: #D85A30;
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #1a1a24;
+    --text: #f0f0f8;
+    --text-muted: #9090a8;
+    --border: rgba(255,255,255,0.08);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    padding: 1.2rem 2rem;
+    display: flex; justify-content: space-between; align-items: center;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem; color: var(--text); text-decoration: none; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--text-muted); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 50% at 20% 50%, rgba(83,74,183,0.25) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 80% 30%, rgba(29,158,117,0.2) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 60% 80%, rgba(212,83,126,0.15) 0%, transparent 70%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
+  }
+  .hero-content { position: relative; max-width: 900px; margin: 0 auto; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(83,74,183,0.15); border: 1px solid rgba(83,74,183,0.3);
+    color: #AFA9EC; font-size: 0.8rem; font-weight: 500;
+    padding: 6px 14px; border-radius: 999px; margin-bottom: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+  .hero-name {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 800;
+    line-height: 1;
+    margin-bottom: 1rem;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero-name span {
+    background: linear-gradient(135deg, var(--purple) 0%, var(--green) 50%, var(--pink) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+  }
+  .hero-subtitle {
+    font-size: 1.1rem; color: var(--text-muted); font-weight: 300;
+    max-width: 600px; line-height: 1.7; margin-bottom: 2.5rem;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+  .hero-contacts {
+    display: flex; flex-wrap: wrap; gap: 12px;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+  .contact-item {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--bg3); border: 1px solid var(--border);
+    padding: 8px 16px; border-radius: 8px;
+    font-size: 0.875rem; color: var(--text-muted);
+    text-decoration: none; transition: all 0.2s;
+  }
+  .contact-item:hover { border-color: var(--purple); color: var(--text); }
+  .contact-item svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; max-width: 960px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--purple); margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 700;
+    margin-bottom: 2.5rem; color: var(--text);
+  }
+
+  /* ABOUT */
+  .about-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 16px; padding: 2rem;
+    border-left: 3px solid var(--purple);
+    font-size: 1rem; line-height: 1.8; color: var(--text-muted);
+  }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; }
+  .skill-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 16px;
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.875rem; color: var(--text-muted);
+    transition: all 0.2s;
+  }
+  .skill-card:hover { border-color: var(--purple); color: var(--text); transform: translateY(-2px); }
+  .skill-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* EXPERIENCE */
+  .exp-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.75rem; margin-bottom: 1rem;
+    transition: border-color 0.2s;
+  }
+  .exp-card:hover { border-color: rgba(83,74,183,0.4); }
+  .exp-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 10px; margin-bottom: 1rem; }
+  .exp-role { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 600; color: var(--text); }
+  .exp-company { font-size: 0.875rem; color: var(--green); margin-top: 3px; }
+  .exp-date {
+    font-size: 0.75rem; color: var(--text-muted);
+    background: var(--bg3); border: 1px solid var(--border);
+    padding: 4px 12px; border-radius: 999px; white-space: nowrap;
+  }
+  .exp-list { list-style: none; }
+  .exp-list li {
+    font-size: 0.875rem; color: var(--text-muted); line-height: 1.7;
+    padding: 4px 0 4px 20px; position: relative;
+  }
+  .exp-list li::before { content: "→"; position: absolute; left: 0; color: var(--green); }
+
+  /* EDUCATION */
+  .edu-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.75rem;
+    display: flex; gap: 1.25rem; align-items: flex-start;
+  }
+  .edu-icon {
+    width: 48px; height: 48px; border-radius: 12px;
+    background: rgba(83,74,183,0.15); border: 1px solid rgba(83,74,183,0.3);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .edu-icon svg { width: 22px; height: 22px; stroke: var(--purple); fill: none; stroke-width: 2; }
+  .edu-degree { font-family: 'Syne', sans-serif; font-size: 1rem; font-weight: 600; color: var(--text); }
+  .edu-school { font-size: 0.875rem; color: var(--text-muted); margin-top: 4px; }
+  .edu-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+  .edu-tag {
+    font-size: 0.75rem; padding: 3px 10px; border-radius: 999px;
+    background: rgba(83,74,183,0.1); color: #AFA9EC; border: 1px solid rgba(83,74,183,0.2);
+  }
+
+  /* CERTS */
+  .certs-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+  .cert-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.25rem;
+    display: flex; align-items: center; gap: 12px;
+    transition: all 0.2s;
+  }
+  .cert-card:hover { border-color: var(--amber); transform: translateY(-2px); }
+  .cert-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .cert-icon svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; }
+  .cert-name { font-size: 0.875rem; font-weight: 500; color: var(--text); }
+  .cert-org { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+
+  /* EXPERTISE */
+  .expertise-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; }
+  .expertise-card {
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.25rem;
+    transition: all 0.2s;
+  }
+  .expertise-card:hover { transform: translateY(-3px); border-color: rgba(83,74,183,0.3); }
+  .expertise-title {
+    font-size: 0.875rem; font-weight: 500; color: var(--text);
+    margin-bottom: 6px; display: flex; align-items: center; gap: 8px;
+  }
+  .expertise-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.6; }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 3rem 2rem;
+    border-top: 1px solid var(--border);
+    color: var(--text-muted); font-size: 0.875rem;
+  }
+
+  @media (max-width: 600px) {
+    nav .nav-links { display: none; }
+    .hero { padding: 7rem 1.25rem 3rem; }
+    section { padding: 3rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">EH</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#education">Education</a></li>
+    <li><a href="#expertise">Expertise</a></li>
+  </ul>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">
+      <span class="hero-dot"></span>
+      Available for opportunities
+    </div>
+    <h1 class="hero-name">Ester<br><span>Hunja</span></h1>
+    <p class="hero-subtitle">Cybersecurity & Digital Forensics Engineer — securing IT infrastructures, investigating threats, and protecting sensitive data with GRC frameworks and forensic expertise.</p>
+    <div class="hero-contacts">
+      <a href="tel:+255767091069" class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81a19.79 19.79 0 01-3.07-8.67A2 2 0 012 .84h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 8.62a16 16 0 006.29 6.29l1.94-1.16a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        +255 767 091 069
+      </a>
+      <a href="mailto:hunjaester1@gmail.com" class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        hunjaester1@gmail.com
+      </a>
+      <a href="https://www.linkedin.com/in/ester-hunja-b73472266" target="_blank" class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+      <span class="contact-item">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Dar Es Salaam, Tanzania
+      </span>
+    </div>
+  </div>
+</div>
+
+<section id="about">
+  <div class="section-label">About me</div>
+  <div class="section-title">Who I am</div>
+  <div class="about-card">
+    Cybersecurity and Digital Forensics Engineering student with practical knowledge in securing IT infrastructures and safeguarding sensitive data. Proficient in log analysis, risk assessment, threat detection, vulnerability assessment, incident response, and digital investigations. Skilled in applying Governance, Risk and Compliance (GRC) frameworks and data analysis to support risk management and regulatory adherence. Recognized for a proactive approach to problem-solving, teamwork, and continuous learning in the ever-evolving cybersecurity landscape.
+  </div>
+</section>
+
+<section id="skills">
+  <div class="section-label">Technical skills</div>
+  <div class="section-title">What I work with</div>
+  <div class="skills-grid">
+    <div class="skill-card"><div class="skill-dot" style="background:#534AB7"></div> SIEM & Log Analysis</div>
+    <div class="skill-card"><div class="skill-dot" style="background:#1D9E75"></div> Incident Response</div>
+    <div class="skill-card"><div class="skill-dot" style="background:#D4537E"></div> Digital Forensics</div>
+    <div class="skill-card"><div class="skill-dot" style="background:#BA7517"></div> Network Traffic Analysis</div>
+    <div class="skill-card"><div class="skill-dot" style="background:#378ADD"></div> Vulnerability Assessment</div>
+    <div class="skill-card"><div class="skill-dot" style="background:#639922"></div> Penetration Testing</div>
+    <div class="skill-card"><div class="skill-dot" style="background:#534AB7"></div> Risk Assessment & GRC</div>
+    <div class="skill-card"><div class="skill-dot" style="background:#D85A30"></div> Threat Intelligence</div>
+    <div class="skill-card"><div class="skill-dot" style="background:#1D9E75"></div> Data Analysis & Visualization</div>
+    <div class="skill-card"><div class="skill-dot" style="background:#D4537E"></div> Security Audit</div>
+    <div class="skill-card"><div class="skill-dot" style="background:#BA7517"></div> Linux & Metasploitable</div>
+    <div class="skill-card"><div class="skill-dot" style="background:#378ADD"></div> OWASP BWA</div>
+  </div>
+</section>
+
+<section id="experience">
+  <div class="section-label">Experience</div>
+  <div class="section-title">Where I've worked</div>
+
+  <div class="exp-card">
+    <div class="exp-header">
+      <div>
+        <div class="exp-role">Cybersecurity & Digital Forensics Intern</div>
+        <div class="exp-company">TTCL Corporation — Dar Es Salaam, Tanzania</div>
+      </div>
+      <span class="exp-date">Jul 2025 – Sep 2025</span>
+    </div>
+    <ul class="exp-list">
+      <li>Performed network traffic analysis on TTCL's fiber internet services to ensure system security and reliability</li>
+      <li>Assisted in implementing security controls to protect network infrastructure and sensitive customer data</li>
+      <li>Supported preparation of security audit reports and recommended measures to strengthen network resilience</li>
+    </ul>
+  </div>
+
+  <div class="exp-card">
+    <div class="exp-header">
+      <div>
+        <div class="exp-role">Cybersecurity & Digital Forensics Intern</div>
+        <div class="exp-company">TTCL Corporation — Dar Es Salaam, Tanzania</div>
+      </div>
+      <span class="exp-date">Jul 2024 – Sep 2024</span>
+    </div>
+    <ul class="exp-list">
+      <li>Assisted in monitoring fiber optic network infrastructure supporting customer internet services</li>
+      <li>Conducted log analysis on network devices to detect anomalies and potential security incidents</li>
+      <li>Supported risk assessment of network systems to identify vulnerabilities affecting service delivery</li>
+      <li>Collaborated on incident response and documented findings for compliance and security reporting</li>
+    </ul>
+  </div>
+</section>
+
+<section id="education">
+  <div class="section-label">Education</div>
+  <div class="section-title">Academic background</div>
+  <div class="edu-card">
+    <div class="edu-icon">
+      <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+    </div>
+    <div>
+      <div class="edu-degree">BSc Cybersecurity and Digital Forensics Engineering</div>
+      <div class="edu-school">University of Dodoma — Dodoma, Tanzania &nbsp;·&nbsp; Expected 2026</div>
+      <div class="edu-tags">
+        <span class="edu-tag">Governance, Risk & Compliance</span>
+        <span class="edu-tag">Data Analysis</span>
+        <span class="edu-tag">Network Security</span>
+        <span class="edu-tag">Incident Response</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="certifications">
+  <div class="section-label">Certifications</div>
+  <div class="section-title">Credentials</div>
+  <div class="certs-grid">
+    <div class="cert-card">
+      <div class="cert-icon" style="background:rgba(83,74,183,0.15);color:#AFA9EC">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+      </div>
+      <div>
+        <div class="cert-name">Governance, Risk & Compliance</div>
+        <div class="cert-org">ICDF Academy</div>
+      </div>
+    </div>
+    <div class="cert-card">
+      <div class="cert-icon" style="background:rgba(29,158,117,0.15);color:#5DCAA5">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+      </div>
+      <div>
+        <div class="cert-name">Data Analysis</div>
+        <div class="cert-org">Data Girls Tanzania</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="expertise">
+  <div class="section-label">Expertise</div>
+  <div class="section-title">Areas I specialise in</div>
+  <div class="expertise-grid">
+    <div class="expertise-card">
+      <div class="expertise-title"><div class="skill-dot" style="background:#534AB7"></div> Log Analysis & Threat Detection</div>
+      <div class="expertise-desc">Monitoring and analysing logs to identify anomalies and potential security incidents using SIEM platforms</div>
+    </div>
+    <div class="expertise-card">
+      <div class="expertise-title"><div class="skill-dot" style="background:#1D9E75"></div> Risk Assessment & Governance</div>
+      <div class="expertise-desc">Applying GRC principles to evaluate vulnerabilities and organizational risk in real environments</div>
+    </div>
+    <div class="expertise-card">
+      <div class="expertise-title"><div class="skill-dot" style="background:#D4537E"></div> Incident Response & Forensics</div>
+      <div class="expertise-desc">Investigating security events and performing forensic analysis in real-world enterprise settings</div>
+    </div>
+    <div class="expertise-card">
+      <div class="expertise-title"><div class="skill-dot" style="background:#BA7517"></div> Network Security</div>
+      <div class="expertise-desc">Securing and monitoring fiber internet infrastructure at TTCL Corporation</div>
+    </div>
+    <div class="expertise-card">
+      <div class="expertise-title"><div class="skill-dot" style="background:#378ADD"></div> Vulnerability Assessment</div>
+      <div class="expertise-desc">Simulated attacks using Linux, Metasploitable, and OWASP BWA with structured risk reporting</div>
+    </div>
+    <div class="expertise-card">
+      <div class="expertise-title"><div class="skill-dot" style="background:#639922"></div> Security Operations</div>
+      <div class="expertise-desc">Using SIEM platforms to correlate logs and detect threats proactively across network systems</div>
+    </div>
+    <div class="expertise-card">
+      <div class="expertise-title"><div class="skill-dot" style="background:#D85A30"></div> Cyber Threat Intelligence</div>
+      <div class="expertise-desc">Monitoring emerging threats and supporting proactive security measures across infrastructure</div>
+    </div>
+    <div class="expertise-card">
+      <div class="expertise-title"><div class="skill-dot" style="background:#993556"></div> Data Analysis</div>
+      <div class="expertise-desc">Interpreting security data and visualizing insights to support informed decision-making</div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Ester Hunja &nbsp;·&nbsp; Cybersecurity & Digital Forensics Engineer &nbsp;·&nbsp; Dar Es Salaam, Tanzania</p>
+  <p style="margin-top:8px;font-size:0.75rem">hunjaester1@gmail.com &nbsp;·&nbsp; +255 767 091 069</p>
+</footer>
+
+</body>
+</html>
